@@ -16,13 +16,18 @@ __author__  = "OpenLab: https://github.com/openlab-vn-ua"
 __license__ = "MIT"
 __version__ = "1.0.5"
 
+SLN2CMAKE_CONFIG_USER='sln2cmake_config_user'
 if os.path.exists('sln2cmake_config_user.py'):
     # use sln2cmake_config_user if it exists
-    from sln2cmake_config_user import Setup
-elif os.path.exists('../sln2cmake_config_user.py'):
+    # from sln2cmake_config_user import Setup # may not work in case we run script from different start folder
+    # use sln2cmake_config_user if it exists
+    import imp
+    SetupMod = imp.load_source(SLN2CMAKE_CONFIG_USER, './'+SLN2CMAKE_CONFIG_USER+'.py')
+    Setup = SetupMod.Setup
+elif os.path.exists('../'+SLN2CMAKE_CONFIG_USER+'.py'):
     # use ../sln2cmake_config_user if it exists
     import imp
-    SetupMod = imp.load_source('sln2cmake_config_user', '../sln2cmake_config_user.py')
+    SetupMod = imp.load_source(SLN2CMAKE_CONFIG_USER, '../'+SLN2CMAKE_CONFIG_USER+'.py')
     Setup = SetupMod.Setup
 else:
     # import empty setup file
