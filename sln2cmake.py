@@ -19,6 +19,11 @@ __version__ = "1.0.5"
 if os.path.exists('sln2cmake_config_user.py'):
     # use sln2cmake_config_user if it exists
     from sln2cmake_config_user import Setup
+elif os.path.exists('../sln2cmake_config_user.py'):
+    # use ../sln2cmake_config_user if it exists
+    import imp
+    SetupMod = imp.load_source('sln2cmake_config_user', '../sln2cmake_config_user.py')
+    Setup = SetupMod.Setup
 else:
     # import empty setup file
     from sln2cmake_config import Setup
